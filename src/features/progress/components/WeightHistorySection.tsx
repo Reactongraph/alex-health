@@ -5,6 +5,8 @@ import { fadeInUp, staggerDelay } from "@/components/animations";
 import { Button, Card, Icon, PressableScale } from "@/components/ui";
 import { useAppSelector } from "@/hooks/redux";
 import { useTailwind } from "@/hooks/useTailwind";
+import { selectWeightEntriesDesc } from "@/store/slices/weightSlice";
+import { formatEntryDate } from "@/utils/date";
 
 import { SECTION_DELAY } from "../constants";
 
@@ -43,10 +45,14 @@ interface WeightHistorySectionProps {
   onAddPress: () => void;
 }
 
+/** How many recent entries the history list shows ("See All" reveals the rest). */
+const HISTORY_LIMIT = 5;
+
 /** Weight history list plus the "Add Weight" action. */
 export function WeightHistorySection({ onAddPress }: WeightHistorySectionProps) {
   const { color } = useTailwind();
-  const entries = useAppSelector((state) => state.weight.entries);
+  const entries = useAppSelector(selectWeightEntriesDesc);
+  const recent = entries.slice(0, HISTORY_LIMIT);
 
   return (
     <Animated.View entering={fadeInUp(staggerDelay(2, 90, SECTION_DELAY))}>
@@ -59,10 +65,10 @@ export function WeightHistorySection({ onAddPress }: WeightHistorySectionProps) 
         </View>
 
         <View className="mt-xs">
-          {entries.map((entry, i) => (
+          {recent.map((entry, i) => (
             <HistoryRow
               key={entry.id}
-              date={entry.date}
+              date={formatEntryDate(entry.timestamp)}
               weight={entry.weight}
               delta={entry.weight - (entries[i + 1]?.weight ?? entry.weight)}
             />

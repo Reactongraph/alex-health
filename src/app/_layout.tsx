@@ -17,7 +17,7 @@ import { persistor, store } from "@/store";
 // splash itself (on layout), so there's no blank frame between the two.
 // The native splash + AnimatedSplash share the same dark PepMind look, and the
 // native splash cross-fades out, so the handoff is seamless.
-ExpoSplashScreen.preventAutoHideAsync().catch(() => {});
+ExpoSplashScreen.preventAutoHideAsync().catch(() => { });
 ExpoSplashScreen.setOptions({ fade: true, duration: 250 });
 
 export default function RootLayout() {
@@ -31,7 +31,7 @@ export default function RootLayout() {
       {/* GestureHandlerRootView is the outermost view and is ALWAYS mounted with the
           dark brand background — so the RN side never shows a white frame, even while
           the store rehydrates (PersistGate renders null during that window). */}
-      <GestureHandlerRootView style={{ flex: 1, backgroundColor: color.background }}>
+      <GestureHandlerRootView style={{ flex: 1, backgroundColor: color.background, paddingTop: 30 }}>
         <SafeAreaProvider>
           <StatusBar style="light" />
           <PersistGate loading={null} persistor={persistor}>

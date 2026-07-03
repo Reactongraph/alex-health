@@ -8,10 +8,3 @@ export interface WeightSummary {
   toGoKg: number;
   goalPercent: number;
 }
-
-export interface WeightEntry {
-  id: string;
-  date: string;
-  weightKg: number;
-  deltaKg: number;
-}

@@ -6,7 +6,7 @@ import { fadeInUp, staggerDelay } from "@/components/animations";
 import { Card, ProgressRing } from "@/components/ui";
 import { useAppSelector } from "@/hooks/redux";
 import { useTailwind } from "@/hooks/useTailwind";
-import type { WeightEntry } from "@/store/slices/weightSlice";
+import { selectWeightEntriesDesc, type WeightEntry } from "@/store/slices/weightSlice";
 
 import { SECTION_DELAY, WEIGHT_GOAL_KG } from "../constants";
 import type { WeightSummary } from "../types";
@@ -18,7 +18,8 @@ function deriveWeightSummary(entries: WeightEntry[], goalKg: number): WeightSumm
   const prevKg = entries[1]?.weight ?? todayKg;
   const startKg = entries.reduce((max, e) => Math.max(max, e.weight), todayKg);
   const span = startKg - goalKg;
-  const goalPercent = span <= 0 ? 100 : Math.min(100, Math.max(0, ((startKg - todayKg) / span) * 100));
+  const goalPercent =
+    span <= 0 ? 100 : Math.min(100, Math.max(0, ((startKg - todayKg) / span) * 100));
 
   return {
     todayKg,
@@ -32,7 +33,7 @@ function deriveWeightSummary(entries: WeightEntry[], goalKg: number): WeightSumm
 /** Today's weight, delta vs yesterday, goal, and the goal progress ring. */
 export function WeightSummarySection() {
   const { color } = useTailwind();
-  const entries = useAppSelector((state) => state.weight.entries);
+  const entries = useAppSelector(selectWeightEntriesDesc);
   const s = useMemo(() => deriveWeightSummary(entries, WEIGHT_GOAL_KG), [entries]);
   const loss = s.deltaKg <= 0;
   const deltaText = `${loss ? "↓" : "↑"} ${Math.abs(s.deltaKg).toFixed(1)} kg`;

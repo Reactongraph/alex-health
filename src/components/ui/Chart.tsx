@@ -140,8 +140,8 @@ function ChartComponent({
       <View className="flex-row">
         {yLabels ? (
           <View className="justify-between" style={{ width: Y_AXIS_WIDTH, height }}>
-            {yLabels.map((label) => (
-              <Text key={label} className="text-caption text-muted">
+            {yLabels.map((label, i) => (
+              <Text key={i} className="text-caption text-muted">
                 {label}
               </Text>
             ))}
@@ -280,7 +280,7 @@ function ChartComponent({
         >
           {xLabels.map((label, i) => (
             <Text
-              key={label}
+              key={i}
               className={cn(
                 "text-caption",
                 i === xLabels.length - 1 ? "text-foreground" : "text-muted",

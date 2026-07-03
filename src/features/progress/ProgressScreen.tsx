@@ -19,7 +19,7 @@ export function ProgressScreen() {
 
   const handleAddWeight = useCallback(
     (kg: number) => {
-      dispatch(addWeight(kg, "Today"));
+      dispatch(addWeight(kg));
       setAddOpen(false);
     },
     [dispatch],
