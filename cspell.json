@@ -1,0 +1,28 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "nativewind",
+    "reanimated",
+    "worklet",
+    "worklets",
+    "Skia",
+    "pepmind",
+    "PepMind",
+    "Tirzepatide",
+    "Catmull",
+    "pravatar",
+    "safearea",
+    "classname"
+  ],
+  "ignoreRegExpList": [
+    "/className=\"[^\"]*\"/g",
+    "/className={[^}]*}/g"
+  ],
+  "ignorePaths": [
+    "node_modules/**",
+    "dist/**",
+    ".expo/**",
+    "package-lock.json"
+  ]
+}
